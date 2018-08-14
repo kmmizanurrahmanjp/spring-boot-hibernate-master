@@ -2,43 +2,15 @@ package com.example.springboothibernatemaster.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.springboothibernatemaster.entity.Patient;
-import com.example.springboothibernatemaster.repository.PatientRepository;
-import com.mysql.jdbc.BlobFromLocator;
 
-@Service
-public class PatientService {
+public interface PatientService {
 
-	@Autowired
-	PatientRepository patientRepository;
+	public int insetPatient(Patient patient);
+	public Patient updatePatient(Patient patient);
+	public boolean deletePatient(int id);
 	
-	public List<Patient> selectAllPatient(){
-		return patientRepository.selectAllPatient();
-	}
-	
-	public Patient insetPatient(Patient patient){
-		int chackPatient = patientRepository.insetPatient(patient);
-		if(chackPatient == patient.getPatientId()){
-			return patient;
-		}else{
-			return null;
-		}
-	}
-	
-	public Patient updatePatient(Patient patient){
-		Patient chackPatient = patientRepository.updatePatient(patient);
-		if(chackPatient == null){
-			return null;
-		}else{
-			return patient;
-		}
-	}
-	
-	public void deletePatient(Patient patient){
-		patientRepository.deletePatient(patient);
-		
-	}
+	public List<Patient> selectAllPatient();
+	public List<Patient> searchPatientById(int id);
+	public List<Patient> selectPatientByCriteria(Patient patient);
 }
